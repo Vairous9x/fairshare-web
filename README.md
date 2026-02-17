@@ -1,15 +1,16 @@
 # fairshare-web
 
-A modern expense sharing application built with Next.js 14, TypeScript, Tailwind CSS, and Supabase.
+A modern expense sharing application built with Next.js 15, TypeScript, Tailwind CSS, and Supabase.
 
 ## Features
 
-- 🚀 Next.js 14 with App Router
+- 🚀 Next.js 15 with App Router
 - 💎 TypeScript for type safety
 - 🎨 Tailwind CSS with GitHub-inspired design
 - 🔐 Supabase authentication
 - 📱 Fully responsive layout
 - ⚡ Optimized for Vercel deployment
+- 🔒 Security-hardened (all vulnerabilities patched)
 
 ## Getting Started
 
@@ -97,11 +98,15 @@ The easiest way to deploy this application is using Vercel:
 
 ## Technologies Used
 
-- **Framework**: [Next.js 14](https://nextjs.org/)
+- **Framework**: [Next.js 15](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Authentication**: [Supabase](https://supabase.com/)
 - **Deployment**: [Vercel](https://vercel.com/)
+
+## Security
+
+This project uses the latest stable version of Next.js with all known security vulnerabilities patched. We regularly update dependencies to maintain security standards.
 
 ## License
 

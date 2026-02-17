@@ -6,6 +6,9 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "FairShare - Expense Sharing Made Easy",
   description: "Split expenses fairly with friends and family",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
