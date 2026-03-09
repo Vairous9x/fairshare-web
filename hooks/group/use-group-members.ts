@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import type { Member, SearchResult, InvitableFriend } from "@/types/group";
 
 /**
@@ -14,6 +15,7 @@ export function useGroupMembers(
   refetch: () => void
 ) {
   const supabase = createClient();
+  const { error: toastError, confirm: toastConfirm } = useToast();
 
   const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
   const [invitableFriends, setInvitableFriends] = useState<
@@ -89,7 +91,7 @@ export function useGroupMembers(
         );
 
         if (addError) {
-          alert(addError.message);
+          toastError(addError.message);
           return;
         }
 
@@ -107,12 +109,12 @@ export function useGroupMembers(
         setAddingMember(null);
       }
     },
-    [groupId, supabase, refetch]
+    [groupId, supabase, refetch, toastError]
   );
 
   const handleRemoveMember = useCallback(
     async (memberId: string, memberName: string) => {
-      const confirmed = confirm(
+      const confirmed = await toastConfirm(
         `Remove ${memberName} from the group?`
       );
       if (!confirmed) return;
@@ -123,12 +125,12 @@ export function useGroupMembers(
       );
 
       if (removeError) {
-        alert("Error: " + removeError.message);
+        toastError("Error: " + removeError.message);
       } else {
         refetch();
       }
     },
-    [groupId, supabase, refetch]
+    [groupId, supabase, refetch, toastError, toastConfirm]
   );
 
   return {

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import type { Member, Expense } from "@/types/group";
 
 /**
@@ -14,6 +15,7 @@ export function useGroupExpenses(
   currentUserId: string
 ) {
   const supabase = createClient();
+  const { error: toastError, confirm: toastConfirm } = useToast();
 
   /* ── Modal state ─────────────────────────────────────── */
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
@@ -55,7 +57,7 @@ export function useGroupExpenses(
 
       // حماية إضافية: التأكد من أن التقسيم سليم قبل الإرسال
       if (!isValidSplit || computedSplits.length === 0) {
-        alert("Please ensure the split is valid and amounts match the total.");
+        toastError("Please ensure the split is valid and amounts match the total.");
         return;
       }
 
@@ -92,7 +94,7 @@ export function useGroupExpenses(
       const { error: rpcError } = await supabase.rpc(rpcName, rpcParams);
 
       if (rpcError) {
-        alert("Error saving expense: " + rpcError.message);
+        toastError("Error saving expense: " + rpcError.message);
       } else {
         setIsExpenseModalOpen(false);
         setEditingExpenseId(null);
@@ -116,12 +118,13 @@ export function useGroupExpenses(
       editingExpenseId,
       supabase,
       refetch,
+      toastError,
     ]
   );
 
   const handleDeleteExpense = useCallback(
     async (expenseId: string, name: string) => {
-      const confirmed = confirm(
+      const confirmed = await toastConfirm(
         `Delete "${name}"? This will recalculate all balances.`
       );
       if (!confirmed) return;
@@ -131,12 +134,12 @@ export function useGroupExpenses(
       });
 
       if (delError) {
-        alert("Error deleting expense: " + delError.message);
+        toastError("Error deleting expense: " + delError.message);
       } else {
         refetch();
       }
     },
-    [supabase, refetch]
+    [supabase, refetch, toastError, toastConfirm]
   );
 
   return {
