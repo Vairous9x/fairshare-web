@@ -1,35 +1,32 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { ToastProvider } from "@/providers/toast-provider"; // 👈 1. ضفنا الاستيراد هنا
+import { ToastProvider } from "@/providers/toast-provider";
+import { ThemeProvider } from "next-themes";
 
-// 1. إعدادات الـ Metadata (الاسم، الوصف، الـ Manifest، وأيقونة الآيفون)
 export const metadata: Metadata = {
   title: "FairShare",
   description: "Financial collaboration made simple",
   manifest: "/manifest.json",
-  icons: {
-    apple: "/apple-icon.png",
-  },
+  icons: { apple: "/apple-icon.png" },
 };
 
-// 2. إعدادات شاشة الموبايل (لون شريط الهاتف من الأعلى) - خاص بـ Next.js 14
 export const viewport: Viewport = {
-  themeColor: "#2563eb",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
-        {/* 👈 2. غلفنا التطبيق بتاعك كله بالمزود عشان الإشعارات تشتغل في كل مكان */}
-        <ToastProvider>
-          {children}
-        </ToastProvider>
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ToastProvider>
+            {children}
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

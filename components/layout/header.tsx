@@ -72,11 +72,11 @@ export function Header({
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-gray-200/60 bg-white/70 px-4 backdrop-blur-xl sm:px-6">
+      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border glass px-4 sm:px-6">
         {/* Mobile Menu */}
         <button
           onClick={onMobileMenuToggle}
-          className="mr-3 flex h-9 w-9 items-center justify-center rounded-xl text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 md:hidden"
+          className="me-3 flex h-9 w-9 items-center justify-center rounded-xl text-foreground-muted transition-colors hover:bg-background-secondary hover:text-foreground md:hidden"
         >
           <Menu className="h-5 w-5" />
         </button>
@@ -87,17 +87,17 @@ export function Header({
             href="/dashboard"
             className="inline-flex items-center gap-2 transition-opacity active:opacity-80"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md shadow-indigo-500/20 md:hidden">
-              <Wallet className="h-4 w-4 text-white" strokeWidth={2.5} />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary shadow-sm md:hidden">
+              <Wallet className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
             </div>
-            <h1 className="truncate text-lg font-extrabold tracking-tight sm:text-xl">
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="truncate text-lg font-semibold tracking-tight text-foreground sm:text-xl">
+              <span className="text-foreground">
                 Fair
               </span>
-              <span className="text-gray-900">Share</span>
+              <span className="text-foreground">Share</span>
             </h1>
           </Link>
-          <p className="hidden text-xs text-gray-500 sm:block">
+          <p className="hidden text-xs text-foreground-muted sm:block">
             {subtitle}
           </p>
         </div>
@@ -105,36 +105,36 @@ export function Header({
         {/* Right Actions */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Search */}
-          <button className="hidden h-9 w-9 items-center justify-center rounded-xl text-gray-400 transition-all duration-200 hover:bg-gray-100 hover:text-gray-600 sm:flex">
+          <button className="hidden h-9 w-9 items-center justify-center rounded-xl text-foreground-muted transition-all duration-200 hover:bg-background-secondary hover:text-foreground sm:flex">
             <Search className="h-[18px] w-[18px]" />
           </button>
 
           {/* QR Scanner */}
           <button
             onClick={() => setIsScannerOpen(true)}
-            className="relative flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-600"
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl text-foreground-muted transition-all duration-200 hover:bg-background-secondary hover:text-foreground"
             title="Scan QR Code"
           >
             <QrCode className="h-[18px] w-[18px]" />
           </button>
 
-          {/* ★ Real-time Notification Bell (replaces static Bell icon) ★ */}
+          {/* Real-time Notification Bell */}
           <NotificationBell userId={userId} />
 
           {/* Divider */}
-          <div className="mx-1 hidden h-6 w-px bg-gray-200 sm:block" />
+          <div className="mx-1 hidden h-6 w-px bg-border sm:block" />
 
           {/* Avatar */}
           <Link
             href="/dashboard/profile"
-            className="group flex items-center gap-2.5 rounded-xl py-1 pl-1 pr-2 transition-all duration-200 hover:bg-gray-100 sm:pr-3"
+            className="group flex items-center gap-2.5 rounded-xl py-1 ps-1 pe-2 transition-all duration-200 hover:bg-background-secondary sm:pe-3"
           >
             <div className="relative">
               <Avatar src={avatarUrl} name={displayName} size="sm" />
-              <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-[1.5px] border-white bg-emerald-400" />
+              <div className="absolute -bottom-0.5 -end-0.5 h-2.5 w-2.5 rounded-full border-[1.5px] border-background bg-success" />
             </div>
             <div className="hidden min-w-0 sm:block">
-              <p className="truncate text-sm font-semibold text-gray-800">
+              <p className="truncate text-sm font-semibold text-foreground">
                 {displayName}
               </p>
             </div>
